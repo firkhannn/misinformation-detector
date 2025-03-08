@@ -8,15 +8,22 @@ import os
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from werkzeug.utils import secure_filename
+import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
 # Load environment variables
 load_dotenv()
-API_USER = os.getenv("SIGHTENGINE_API_USER")  # Replace with your API user
-API_SECRET = os.getenv("SIGHTENGINE_API_SECRET")  # Replace with your API secret
+API_USER = os.getenv("SIGHTENGINE_API_USER")
+API_SECRET = os.getenv("SIGHTENGINE_API_SECRET")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 
 app = Flask(__name__)
 CORS(app)
+
+# Root route for testing
+@app.route('/')
+def home():
+    return jsonify({"message": "Welcome to the Hackathon Backend!"})
 
 # Helper function to call Sightengine Deepfake API
 def call_deepware_api(image_data):
@@ -25,7 +32,7 @@ def call_deepware_api(image_data):
         params = {
             "api_user": API_USER,
             "api_secret": API_SECRET,
-            "models": "deepfake"  # Specify deepfake detection model
+            "models": "deepfake"
         }
         files = {
             "media": ("image.jpg", image_data, "image/jpeg")
@@ -59,11 +66,9 @@ def call_google_factcheck_api(claim):
 # Helper function to extract claim from image or URL
 def extract_claim(image_data, url=None):
     try:
-        # Extract text from image using OCR
         image = Image.open(io.BytesIO(image_data))
         text = pytesseract.image_to_string(image).strip()
 
-        # If a URL is provided, scrape it for additional text
         if url:
             response = requests.get(url)
             soup = BeautifulSoup(response.text, "lxml")
@@ -81,7 +86,6 @@ def extract_claim(image_data, url=None):
 @app.route('/analyze', methods=['POST'])
 def analyze():
     try:
-        # Check if an image file or URL was sent
         if 'image' in request.files:
             image = request.files['image']
             filename = secure_filename(image.filename)
@@ -96,22 +100,18 @@ def analyze():
         else:
             return jsonify({"error": "No image or URL provided"}), 400
 
-        # Step 1: Call Sightengine API to analyze the image
         deepware_result = call_deepware_api(image_data)
         if "error" in deepware_result:
             return jsonify(deepware_result), 500
 
-        # Step 2: Extract claim from image or URL
         claim = extract_claim(image_data, request.form.get('url') if 'url' in request.form else None)
         if "failed" in claim.lower():
             return jsonify({"error": claim}), 500
 
-        # Step 3: Call Google Fact-Checker API to verify the claim
         factcheck_result = call_google_factcheck_api(claim)
         if "error" in factcheck_result:
             return jsonify(factcheck_result), 500
 
-        # Combine results
         result = {
             "deepware_result": deepware_result,
             "factcheck_result": factcheck_result,
