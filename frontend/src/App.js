@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Home from "./pages/Home";  // Correct import path
+import "./index.css"; // Import global styles
 
 function App() {
   const [claim, setClaim] = useState("");
@@ -41,41 +43,14 @@ function App() {
   };
 
   return (
-    <div style={{ textAlign: "center", padding: "20px", fontFamily: "Arial", maxWidth: "600px", margin: "auto" }}>
-      <h1>📰 Fake News & Doctored Image Detector</h1>
-
-      {/* Fake News Detection */}
-      <h2>📄 Check an Online Article</h2>
-      <textarea
-        rows="4"
-        cols="50"
-        placeholder="Paste an article text here..."
-        value={claim}
-        onChange={(e) => setClaim(e.target.value)}
-        style={{ padding: "10px", width: "90%" }}
-      ></textarea>
-      <br />
-      <button
-        onClick={checkFact}
-        style={{
-          padding: "10px",
-          backgroundColor: "#007BFF",
-          color: "white",
-          border: "none",
-          borderRadius: "5px",
-          cursor: "pointer",
-        }}
-      >
-        Verify Article
-      </button>
-      <div style={{ marginTop: "20px", fontWeight: "bold", color: "blue" }}>{factResult}</div>
-
-      {/* Doctored Image Detection */}
-      <hr />
-      <h2>📷 Check a Photo for Manipulation</h2>
-      <input type="file" onChange={analyzeImage} accept="image/*" />
-      <div style={{ marginTop: "20px", fontWeight: "bold", color: "red" }}>{imageResult}</div>
-    </div>
+    <Home
+      claim={claim}
+      setClaim={setClaim}
+      factResult={factResult}
+      checkFact={checkFact}
+      analyzeImage={analyzeImage}
+      imageResult={imageResult}
+    />
   );
 }
 
