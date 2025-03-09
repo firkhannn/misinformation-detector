@@ -79,6 +79,9 @@ To start using SmartCommute, follow these steps:
     <img src="https://img.shields.io/badge/python-096AB?style=for-the-badge&logo=python" />
     <img src="https://img.shields.io/badge/react-5b7700?style=for-the-badge&logo=react" />
     <img src="https://img.shields.io/badge/npm-8096Af?style=for-the-badge&logo=npm" />
+    <img src="https://img.shields.io/badge/google_fact_checker-4285F4?style=for-the-badge&logo=google" />
+    <img src="https://img.shields.io/badge/mxface-FF5733?style=for-the-badge&logo=mxface" />
+    <img src="https://img.shields.io/badge/sight_engine-2C3E50?style=for-the-badge&logo=sightengine" />
 
 
   </p>   
