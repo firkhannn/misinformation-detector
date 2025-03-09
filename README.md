@@ -1,6 +1,6 @@
 
-# SmartCommute
-![alt text](./fakemeh.png)
+# FakeMeh??
+![alt text](./frontend/public/fakemeh.png)
 
 ## Mission Statement
 
