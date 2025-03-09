@@ -101,27 +101,31 @@ def analyze():
         if "error" in deepware_result:
             return jsonify(deepware_result), 500
 
-        # Step 2: Extract claim from image or URL
-        claim = extract_claim(image_data, request.form.get('url') if 'url' in request.form else None)
-        if "failed" in claim.lower():
-            return jsonify({"error": claim}), 500
+        deepfake_score = deepware_result.get("manipulation_score", 0.0)
 
-        # Step 3: Call Google Fact-Checker API to verify the claim
-        factcheck_result = call_google_factcheck_api(claim)
-        if "error" in factcheck_result:
-            return jsonify(factcheck_result), 500
+        # Determine classification and color
+        if deepfake_score >= 0.7:
+            classification = "Highly Likely Fake"
+            color = "red"
+        elif deepfake_score >= 0.4:
+            classification = "Possibly Fake"
+            color = "yellow"
+        else:
+            classification = "Likely Real"
+            color = "green"
 
-        # Combine results
+        # Prepare final response
         result = {
-            "deepware_result": deepware_result,
-            "factcheck_result": factcheck_result,
-            "extracted_claim": claim
+            "deepfake_score": deepfake_score,
+            "classification": classification,
+            "color": color,
+            "raw_response": deepware_result
         }
 
         return jsonify(result), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-
+        
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
