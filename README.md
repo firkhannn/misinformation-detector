@@ -34,27 +34,26 @@ To start using SmartCommute, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/yourusername/SmartCommute.git
-   cd SmartCommute
+   git clone https://github.com/yourusername/misinformation-detector.git
+   cd misinformation-detector
 
 2. **Install Dependencies**: Navigate to both frontend and backend directories to install dependencies
    ```bash
    cd frontend
    npm install
-   pip install -r requirements.txt
    cd ../backend
    pip install -r requirements.txt
    npm install
 
 3. **Set Up Environment Variables**: Create a `.env` file in both frontend and backend.
 
-    ```makefile
-   ## For frontend .env: 
-    REACT_APP_GMAPSAPI = your_google_maps_api_key
-    ```
+
     ```makefile
     ## For backend .env:
-    MONG_URI = your_mongodb_uri
+    SIGHTENGINE_API_USER=your_sightengine_user
+    SIGHTENGINE_API_SECRET=your_sightengine_secret
+    GOOGLE_API_KEY=your_google_api_key
+    MXFACE_API_KEY=your_mxface_api_key
     ```
 
 4. **Run the Application**: Start both frontend and backend servers
@@ -68,13 +67,9 @@ To start using SmartCommute, follow these steps:
      ```bash
     # Backend
     cd backend
-    npm run dev
+    python app.py
     ```
 5. **Explore Features**:
-
-    - View optimal routes based on cost and time recommendation
-    - Save your favourite destinations
-    - Make better commuting choices with comprehensive information
 
 
 ## Technologies Used  
