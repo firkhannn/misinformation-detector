@@ -1,6 +1,6 @@
 
 # FakeMeh??
-![alt text](./frontend/public/fakemeh.png)
+![alt text](./frontend/public/fakemehMain.jpg)
 
 ## Mission Statement
 
