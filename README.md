@@ -26,7 +26,8 @@ Fakemeh? is designed for a broad and inclusive audience, ensuring accessibility 
 - **Content Creators & Researchers**: Those analyzing AI-generated content and seeking transparency in digital media.
 - **Elderly Users**: Recognizing the challenges older individuals may face in identifying deepfakes, we have designed Fakemeh? with an intuitive, minimalist interface, high-contrast colors, and step-by-step tutorials to ensure ease of use.
 
-
+## Project Video
+https://youtu.be/G6iaiCnd0iM?feature=shared 
 
 ## Getting Started
 
